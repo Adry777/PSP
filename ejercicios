@@ -1,0 +1,23 @@
+#include <stdlib.h>
+#include <unistd.h>
+#include <stdio.h>
+#include <sys/types.h>
+#include <sys/wait.h>
+
+void main(){
+
+	pid_t pid, hijo_pid;
+	pid = fork();
+	
+	if(pid == 0)
+	{
+	printf("soy el proceso hijo y el nombre del alumno es\n");
+	printf("%d", system("who i am"));
+	}
+	else
+	{
+	hijo_pid = wait(NULL);
+	printf("\nSoy el proceso padre y mi PID es %d , el PID de mi hijo es %d \n ", getpid(), getppid());
+	}
+	exit(0);
+}

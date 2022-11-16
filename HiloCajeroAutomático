@@ -1,0 +1,36 @@
+package threads;
+
+public class HiloIngresarDinero extends Thread {
+	private CuentaBancaria cuenta;
+	private String nombre;
+	private int cantidad;
+	private Thread hilo;
+
+	// Constructor de la clase
+	HiloIngresarDinero(CuentaBancaria micuenta, String nombre, int cantidad) {
+		this.cantidad = cantidad;
+		cuenta = micuenta;
+		this.nombre = nombre;
+	}
+
+	HiloIngresarDinero(CuentaBancaria micuenta, String nombre, int cantidad, Thread hilo) {
+		this.hilo = hilo;
+
+		this.cantidad = cantidad;
+		cuenta = micuenta;
+		this.nombre = nombre;
+	}
+
+	public void run() {
+		if (hilo != null) {
+			try {
+				hilo.join();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		System.out.println(nombre + " ingresó de la cuenta " + cantidad + "$");
+		cuenta.ingresarDinero(nombre, cantidad);
+	}
+}
